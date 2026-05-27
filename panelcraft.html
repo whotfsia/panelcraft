@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PanelCraft Storyboard & Manhwa Panel Planner</title>
+  <link rel="stylesheet" href="panelcraft.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       TOP NAVBAR
+  ═══════════════════════════════════════════ -->
+  <header class="navbar" role="banner">
+    <div class="navbar__brand">
+      <span class="navbar__logo">✦</span>
+      <h1 class="navbar__title">PanelCraft</h1>
+      <span class="navbar__subtitle">Storyboard Planner</span>
+    </div>
+
+    <div class="pacing-meter" aria-label="Chapter Pacing Meter">
+      <span class="pacing-meter__label">PACING METER</span>
+      <div class="pacing-meter__bars" id="pacing-bars"></div>
+      <div class="pacing-meter__legend" id="pacing-legend"></div>
+    </div>
+
+    <div class="pacing-alert" id="pacing-alert" role="alert" aria-live="polite"></div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN LAYOUT
+  ═══════════════════════════════════════════ -->
+  <main class="workspace" role="main">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" role="complementary" aria-label="Character Registry">
+      <div class="sidebar__header">
+        <h2 class="sidebar__title">Character Registry</h2>
+        <span class="sidebar__count" id="char-count">0 characters</span>
+      </div>
+
+      <form class="char-form" id="char-form" novalidate aria-label="Add Character">
+        <label class="char-form__label" for="char-name">Name</label>
+        <input class="char-form__input" type="text" id="char-name" placeholder="e.g. Seraphel" maxlength="32" autocomplete="off" />
+
+        <label class="char-form__label" for="char-role">Role</label>
+        <input class="char-form__input" type="text" id="char-role" placeholder="e.g. Protagonist" maxlength="32" autocomplete="off" />
+
+        <label class="char-form__label" for="char-color">Color Tag</label>
+        <div class="char-form__color-row">
+          <input class="char-form__color" type="color" id="char-color" value="#a78bfa" />
+          <span class="char-form__color-preview" id="color-preview">#a78bfa</span>
+        </div>
+
+        <button class="btn btn--primary" type="submit">+ Add Character</button>
+      </form>
+
+      <ul class="char-list" id="char-list" aria-label="Character list"></ul>
+    </aside>
+
+    <!-- CHAPTER TIMELINE -->
+    <section class="timeline-wrapper" aria-label="Chapter Timeline">
+      <div class="timeline-toolbar">
+        <h2 class="timeline-toolbar__title">
+          Chapter Timeline
+          <span class="timeline-toolbar__panel-count" id="panel-count">0 panels</span>
+        </h2>
+        <div class="timeline-toolbar__actions">
+          <button class="btn btn--accent" id="add-panel-btn">+ Add New Panel Card</button>
+          <button class="btn btn--ghost" id="clear-btn">Clear All</button>
+        </div>
+      </div>
+
+      <div class="timeline" id="timeline" role="list" aria-label="Panel cards">
+        <div class="timeline__end-drop" id="end-drop" aria-hidden="true"></div>
+      </div>
+
+      <div class="timeline-empty" id="timeline-empty">
+        <span class="timeline-empty__icon">🎨</span>
+        <p class="timeline-empty__title">Your chapter is empty</p>
+        <p class="timeline-empty__sub">Click <strong>+ Add New Panel Card</strong> to begin plotting your story.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PANEL CARD TEMPLATE -->
+  <template id="panel-card-template">
+    <article class="panel-card" draggable="true" role="listitem">
+      <div class="panel-card__drag-handle" title="Drag to reorder">⠿</div>
+      <div class="panel-card__number"></div>
+
+      <div class="panel-card__thumbnail" title="Click to upload panel image">
+        <input class="panel-card__img-input" type="file" accept="image/*" tabindex="-1" aria-label="Upload panel image" />
+        <div class="panel-card__img-placeholder">
+          <span class="panel-card__img-icon">🖼</span>
+          <span class="panel-card__img-hint">Upload Image</span>
+        </div>
+        <img class="panel-card__img-preview" src="" alt="Panel thumbnail" style="display:none;" />
+      </div>
+
+      <div class="panel-card__field">
+        <label class="panel-card__label">Scene Type</label>
+        <select class="panel-card__scene-select" aria-label="Scene type">
+          <option value="Action">⚡ Action</option>
+          <option value="Dialogue">💬 Dialogue</option>
+          <option value="Suspense">🔮 Suspense</option>
+          <option value="Lore Drop">📖 Lore Drop</option>
+        </select>
+      </div>
+
+      <div class="panel-card__field">
+        <label class="panel-card__label">Scene Notes</label>
+        <textarea class="panel-card__notes" placeholder="Describe the scene, dialogue, or visual direction…" rows="3" maxlength="300" aria-label="Scene description"></textarea>
+      </div>
+
+      <div class="panel-card__field">
+        <label class="panel-card__label">Characters Present</label>
+        <div class="panel-card__char-tags" aria-label="Characters in this panel"></div>
+      </div>
+
+      <button class="panel-card__delete" aria-label="Delete panel" title="Delete panel">✕</button>
+    </article>
+  </template>
+
+  <script src="panelcraft.js"></script>
+</body>
+</html>
